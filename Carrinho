@@ -23,3 +23,33 @@ return items.map(item => {
     }
   };
 });
+javascript
+Copiar
+// Adicionar item ao carrinho e salvar no localStorage
+function adicionarAoCarrinho(produto) {
+  let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  carrinho.push(produto);
+  localStorage.setItem('carrinho', JSON.stringify(carrinho));
+}
+
+// Recuperar carrinho do localStorage
+function obterCarrinho() {
+  return JSON.parse(localStorage.getItem('carrinho')) || [];
+}
+// Sincronizar carrinho ao carregar a página
+window.addEventListener('load', () => {
+  const carrinhoLocal = obterCarrinho();
+  fetch('/api/sincronizar-carrinho', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(carrinhoLocal)
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Atualizar localStorage com dados do servidor, se necessário
+    localStorage.setItem('carrinho', JSON.stringify(data.carrinhoAtualizado));
+  })
+  .catch(error => console.error('Erro ao sincronizar carrinho:', error));
+});
