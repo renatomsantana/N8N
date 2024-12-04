@@ -1,0 +1,25 @@
+return items.map(item => {
+  const carrinho = item.json;
+  // Supondo que o carrinho tenha uma lista de produtos
+  const totalProdutos = carrinho.produtos.length;
+  const valorTotal = carrinho.produtos.reduce((total, produto) => total + produto.preco, 0);
+  
+  return {
+    json: {
+      totalProdutos,
+      valorTotal
+    }
+  };
+});
+return items.map(item => {
+  const carrinho = item.json;
+  const totalProdutos = carrinho.produtos.length;
+  const valorTotal = carrinho.produtos.reduce((total, produto) => total + produto.preco, 0);
+  
+  return {
+    json: {
+      totalProdutos,
+      valorTotal
+    }
+  };
+});
