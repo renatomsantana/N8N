@@ -1,0 +1,39 @@
+{
+  "name": "API to Slack",
+  "nodes": [
+    {
+      "parameters": {
+        "requestMethod": "GET",
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "jsonParameters": false
+      },
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "webhookUri": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+        "message": "New Data Received: {{$node['HTTP Request'].json}}"
+      },
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
